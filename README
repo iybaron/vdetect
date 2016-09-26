@@ -1,0 +1,40 @@
+Assignment from UC Davis Computer Security course (ECS 153)
+
+Project specifications:
+
+This problem asks you to write a program using C or C++ that functions in the same way that a basic anti-virus program functions.
+
+The file “vdetect.str” contains lines of the following format:
+
+    name:string 
+
+where name is a string that does not contain a ‘:’ and string is a string. The string may contain non-printing characters, which will be recorded as ‘\xnn’, where nn is a 2 digit hexadecimal number. This represents the character sequence that indicate the presence of malware.
+
+If a line begins with the hash mark ‘#’, it is a comment line and is to be ignored.
+
+Write a program vdetect that reads one or more files and compares each file to the strings in vdetect.str. If the file contains any string in vdetect.str, print the corresponding name and the number of the byte in the file where the string begins. The exit status code is to be 0 if no matches occur, 1 if any match occurs, 2 if there is a malformed line in vdetect.str and no matches are found, and 3 if there is a malformed line in vdetect.str and a match is found.
+
+The command line syntax is:
+
+    vdetect [ -q ] [ -s ] [ -d strfile ] [ file1 [ ... ] ] 
+
+where file1, ... is the list of files to scan (if none, read from the standard input). Options are:
+
+-d strfile	Use strfile rather than vdetect.str
+-s	Stop scanning the file when the first match is detected
+-q	Do not print any output; just give the exit status code
+
+If your program finds a malformed line in vdetect.str, it is to print the line number and a message like this:
+
+    line 13: Malformed line in vdetect.str 
+
+If you use another string file (that is, give the -d option), put that file name in place of “vdetect.str”.
+
+If your program cannot open a file, use perror(3) to print an appropriate error message.
+
+Remember to write your program robustly! Check the return values of library functions and system calls, and so forth. Also write your code modularly; we may, for example, ask you to change from string matching to pattern matching in a future assignment. 
+
+Specific information regarding implementation:
+When no command line arguments are given to vdetect, the user is prompted for input.  The program will take input until user hits enter.  Input will be stored in a file called "filex".
+
+Whitespace in lines in vdetect.str are read as part of names and signatures. Also, blank lines in vdetect.str are considered to be malformed.
